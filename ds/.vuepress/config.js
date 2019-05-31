@@ -17,10 +17,7 @@ module.exports = {
             text: '其他专栏',
             items: [{
                 text: '重学前端',
-                link: 'http://doc.mcust.cn/web/'
-            }, {
-                text: '..',
-                link: '/language/english'
+                link: 'http://doc.mcust.cn/frontend/'
             }]
         }],
         sidebar: [

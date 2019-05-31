@@ -8,7 +8,7 @@
     "docs:build": "vuepress build docs",
     "ds:dev": "vuepress dev ds",
     "ds:build": "vuepress build ds",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run docs:build && npm run ds:build"
   },
   "author": "",
   "license": "ISC",

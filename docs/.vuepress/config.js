@@ -16,15 +16,9 @@ module.exports = {
         }, {
             text: '其他专栏',
             items: [{
-                text: 'Chinese',
-                link: '/language/chinese'
-            }, {
-                text: 'English',
-                link: '/language/english'
+                text: '数据结构与算法之美',
+                link: 'http://doc.mcust.cn/ds/'
             }]
-        }, {
-            text: '博客',
-            link: 'https://blog.mcust.cn/blogs/maixiaojie'
         }],
         sidebar: [
             ['./web/77345', '开篇词 | 从今天起，重新理解前端'],
