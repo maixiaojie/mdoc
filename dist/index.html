@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>麦晓杰的主页</title>
+    <meta name="keywords" content="麦晓杰,工作室" />
+    <meta name="description" content="麦晓杰的主页" />
+    <meta name="author" content="麦晓杰(blog.mcust.cn)" />
+    <meta name="copyright" content="麦晓杰(blog.mcust.cn)" />
+    <!-- Js -->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/tether/1.4.4/js/tether.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <link href="./static/css/style.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="nav">
+        <a class="logo" href="index.html"><img src="https://img.hacpai.com/avatar/1559013015300_1559109080983.jpeg" width="40" title="麦晓杰"></a>
+        <a class="logo pull-right sobtn"><span class="glyphicon glyphicon-search" style="color: #B4B4B4;"></span></a>
+    </div>
+    <!-- Body -->
+    <section class="cd-hero">
+        <ul class="cd-hero-slider autoplay">
+            <li class="selected">
+                <div class="cd-half-width">
+                    <h2>麦晓杰</h2>
+                    <p>爱音乐、爱折腾、爱生活</p>
+                    <p>前端开发攻城狮，'悠客社区'小程序开发者</p>
+                    <a class="cd-btn" target="__blank" href="https://qq.mcust.cn/#/about">查看详情</a>
+                </div>
+                <div class="cd-half-width cd-img-container">
+                    <img src="./static/img/minip.jpg" style="max-width: 280px;" alt="悠客社区" title="悠客社区小程序" />
+                </div>
+            </li>
+            <li>
+                <div class="cd-full-width">
+                    <h2>观点与分享</h2>
+                    <p>记录生活点滴，分享人生喜乐！</p>
+                    <a class="cd-btn" href="https://blog.mcust.cn/blogs/maixiaojie" target="_blank">查看详情</a>
+                </div>
+            </li>
+            <li>
+                <div class="cd-full-width">
+                    <h2>奉献与努力</h2>
+                    <p>无私奉献不是天方夜谭，有时候，我们也可以做到。</p>
+                    <a class="cd-btn" href="http://doc.mcust.cn/ds/" target="_blank">查看详情</a>
+                </div>
+            </li>
+            <li class="cd-bg-video">
+                <div class="cd-full-width">
+                    <h2>志趣相投</h2>
+                    <p>我们都一样热爱生活，记录生活，享受生活！</p>
+                    <!-- <a class="cd-btn" href="friends.html" target="_blank">查看详情</a> -->
+                </div>
+                <div class="cd-bg-video-wrapper" data-video="./static/video/video">
+                </div>
+            </li>
+            <li>
+                <div class="cd-full-width">
+                    <h2>说走就走</h2>
+                    <p>生活不止眼前的苟且，还有诗和远方的田野！</p>
+                    <!-- <a class="cd-btn" href="tracks.html" target="_blank">查看详情</a> -->
+                </div>
+            </li>
+        </ul>
+        <div class="cd-slider-nav">
+            <nav>
+                <span class="cd-marker item-1"></span>
+                <ul>
+                    <li class="selected">
+                        <a class="glyphicon glyphicon-user" href="#0">简介</a>
+                    </li>
+                    <li>
+                        <a class="glyphicon glyphicon-fire" href="#0">博客</a>
+                    </li>
+                    <li>
+                        <a class="glyphicon glyphicon-film" href="#0">分享</a>
+                    </li>
+                    <li>
+                        <a class="glyphicon glyphicon-record" href="#0">圈子</a>
+                    </li>
+                    <li>
+                        <a class="glyphicon glyphicon-globe" href="#0">旅行</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+    <script src="./static/js/main.js"></script>
+    <!-- Footer -->
+    <div class="clear"></div>
+    <div class="foot">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="#">京ICP备17016953号</a>
+                </div>
+                <div class="col-sm-8 fr">Copyright © 2017 - 2019 YOKE Powered by <a href="https://qq.mcust.cn/#/about">YOKE工作室</a>
+                </div>
+                <p></p>
+            </div>
+        </div>
+        <!-- 弹出层 -->
+        <div class="so">
+            <i class="iconfont" title="关闭">×</i>
+            <div class="container">
+                <form action="https://www.baidu.com/baidu" target="_blank">
+                    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+                    <input type="text" name="word" class="form-control" baiduSug="1" value="百度搜索..." />
+                    <input type="submit" style="display: none;" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="to-top">↑</div>
+    <script>
+    var sc = $(".to-top");
+    sc.bind("click", function() {
+        $('html,body').animate({
+            'scrollTop': 0
+        }, 400);
+    });
+    $(window).scroll(function() {
+        var scrtop = document.body.scrollTop;
+        if (scrtop >= 100) {
+            sc.show();
+        } else {
+            sc.fadeOut();
+        }
+    });
+    //鎼滅储
+    $(".sobtn").click(function() {
+        $(".so").fadeIn();
+    });
+    $(".so .iconfont").click(function() {
+        $(".so").fadeOut();
+    });
+    $(".so .form-control").click(function() {
+        $(this).val('');
+    });
+    console.log("%c MaiXiaojie %c Copyright \xa9 %s", 'font-family: Helvetica, Arial, sans-serif;font-size:64px;color:#00bbee;-webkit-text-fill-color:#00bbee;-webkit-text-stroke: 1px #00bbee;', "font-size:12px;color:#999999;", (new Date).getFullYear());
+    var bheigh = $(window).height();
+    var bheigh = bheigh - 115;
+    $(".cd-hero").css('height', bheigh);
+    $(window).resize(function() {
+        var bheigh = $(window).height();
+        var bheigh = bheigh - 115;
+        $(".cd-hero").css('height', bheigh);
+    });
+    </script>
+</body>
+
+</html>
