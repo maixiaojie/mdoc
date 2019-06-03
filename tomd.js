@@ -1,8 +1,8 @@
 const TurnDown = require('turndown')
 const fs = require('fs')
 
-var mdFilePath = './ds/article/'
-var JsonfilePath = './json/ds.json'
+var mdFilePath = './blockchain/article/'
+var JsonfilePath = './json/blockchain.json'
 var trims = function(str) {
     str = str.replace(/\s/g, "");
     str = str.replace(/\||\*|/g, "");
@@ -11,7 +11,7 @@ var trims = function(str) {
 };
 var handleOne = function(item) {
     var turndown = new TurnDown()
-    var markdown = turndown.turndown(item.article_content)
+    var markdown = turndown.turndown(item.mdhtml)
     
     if (!fs.existsSync(mdFilePath)) {
         fs.mkdirSync(mdFilePath);
@@ -45,4 +45,5 @@ function createSideBar() {
     }
     console.log(sidebar);
 }
-createSideBar()
+createFile()
+// createSideBar()

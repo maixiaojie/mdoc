@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>深入拆解 Java 虚拟机</title>
+    <meta name="description" content="Deep Dismantling of Java Virtual Machines">
+    <link rel="icon" href="/jvm/logo.png">
+    
+    <link rel="preload" href="/jvm/assets/css/0.styles.80faf303.css" as="style"><link rel="preload" href="/jvm/assets/js/app.b0c224e1.js" as="script"><link rel="preload" href="/jvm/assets/js/11.bfe83943.js" as="script"><link rel="prefetch" href="/jvm/assets/js/10.b4a8a827.js"><link rel="prefetch" href="/jvm/assets/js/12.b25aa468.js"><link rel="prefetch" href="/jvm/assets/js/13.f35b4b14.js"><link rel="prefetch" href="/jvm/assets/js/14.d49650d6.js"><link rel="prefetch" href="/jvm/assets/js/15.5a71ef71.js"><link rel="prefetch" href="/jvm/assets/js/16.39144d7d.js"><link rel="prefetch" href="/jvm/assets/js/17.1a61435a.js"><link rel="prefetch" href="/jvm/assets/js/18.95b1bee1.js"><link rel="prefetch" href="/jvm/assets/js/19.1dd19d7a.js"><link rel="prefetch" href="/jvm/assets/js/2.d2d3b164.js"><link rel="prefetch" href="/jvm/assets/js/20.5dfbcdd0.js"><link rel="prefetch" href="/jvm/assets/js/21.fce787bf.js"><link rel="prefetch" href="/jvm/assets/js/22.063ac2ae.js"><link rel="prefetch" href="/jvm/assets/js/23.9db307ef.js"><link rel="prefetch" href="/jvm/assets/js/24.3009a915.js"><link rel="prefetch" href="/jvm/assets/js/25.648c2c86.js"><link rel="prefetch" href="/jvm/assets/js/26.33fc6899.js"><link rel="prefetch" href="/jvm/assets/js/27.cb22d900.js"><link rel="prefetch" href="/jvm/assets/js/28.634ebc75.js"><link rel="prefetch" href="/jvm/assets/js/29.f411aaad.js"><link rel="prefetch" href="/jvm/assets/js/3.f64f10dc.js"><link rel="prefetch" href="/jvm/assets/js/30.60b08124.js"><link rel="prefetch" href="/jvm/assets/js/31.214f3fb7.js"><link rel="prefetch" href="/jvm/assets/js/32.3b4d182b.js"><link rel="prefetch" href="/jvm/assets/js/33.bd3d415a.js"><link rel="prefetch" href="/jvm/assets/js/34.3d46a13b.js"><link rel="prefetch" href="/jvm/assets/js/35.0b788f34.js"><link rel="prefetch" href="/jvm/assets/js/36.92608b69.js"><link rel="prefetch" href="/jvm/assets/js/37.d2ff4488.js"><link rel="prefetch" href="/jvm/assets/js/38.88385b69.js"><link rel="prefetch" href="/jvm/assets/js/39.6ebedb05.js"><link rel="prefetch" href="/jvm/assets/js/4.cecc0b55.js"><link rel="prefetch" href="/jvm/assets/js/40.c04c4d3f.js"><link rel="prefetch" href="/jvm/assets/js/41.400ac52b.js"><link rel="prefetch" href="/jvm/assets/js/42.1b347f87.js"><link rel="prefetch" href="/jvm/assets/js/43.49db281a.js"><link rel="prefetch" href="/jvm/assets/js/5.7f9cb687.js"><link rel="prefetch" href="/jvm/assets/js/6.d3241020.js"><link rel="prefetch" href="/jvm/assets/js/7.f5fe3fc4.js"><link rel="prefetch" href="/jvm/assets/js/8.61fdea72.js"><link rel="prefetch" href="/jvm/assets/js/9.33c162e9.js">
+    <link rel="stylesheet" href="/jvm/assets/css/0.styles.80faf303.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jvm/" class="home-link router-link-active"><!----> <span class="site-name">深入拆解 Java 虚拟机</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jvm/" class="nav-link">Home</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">其他专栏</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/frontend/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  重学前端
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/ds/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  数据结构与算法之美
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/netprotocol/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  趣谈网络协议
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/air/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  左耳听风
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/blockchain/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  深入浅出区块链
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jvm/" class="nav-link">Home</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">其他专栏</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/frontend/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  重学前端
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/ds/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  数据结构与算法之美
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/netprotocol/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  趣谈网络协议
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/air/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  左耳听风
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/blockchain/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  深入浅出区块链
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/jvm/article/11074.html" class="sidebar-link">开篇词 | 为什么我们要学习Java虚拟机？</a></li><li><a href="/jvm/article/11289.html" class="sidebar-link">01 | Java代码是怎么运行的？</a></li><li><a href="/jvm/article/11503.html" class="sidebar-link">02 | Java的基本类型</a></li><li><a href="/jvm/article/11523.html" class="sidebar-link">03 | Java虚拟机是如何加载Java类的?</a></li><li><a href="/jvm/article/11539.html" class="sidebar-link">04 | JVM是如何执行方法调用的？（上）</a></li><li><a href="/jvm/article/12098.html" class="sidebar-link">05 | JVM是如何执行方法调用的？（下）</a></li><li><a href="/jvm/article/12134.html" class="sidebar-link">06 | JVM是如何处理异常的？</a></li><li><a href="/jvm/article/12192.html" class="active sidebar-link">07 | JVM是如何实现反射的？</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jvm/article/12192.html#反射调用的实现" class="sidebar-link">反射调用的实现</a></li><li class="sidebar-sub-header"><a href="/jvm/article/12192.html#反射调用的开销" class="sidebar-link">反射调用的开销</a></li><li class="sidebar-sub-header"><a href="/jvm/article/12192.html#总结与实践" class="sidebar-link">总结与实践</a></li><li class="sidebar-sub-header"><a href="/jvm/article/12192.html#附录：反射api简介" class="sidebar-link">附录：反射API简介</a></li></ul></li><li><a href="/jvm/article/12423.html" class="sidebar-link">【工具篇】 常用工具介绍</a></li><li><a href="/jvm/article/12564.html" class="sidebar-link">08 | JVM是怎么实现invokedynamic的？（上）</a></li><li><a href="/jvm/article/12574.html" class="sidebar-link">09 | JVM是怎么实现invokedynamic的？（下）</a></li><li><a href="/jvm/article/13081.html" class="sidebar-link">10 | Java对象的内存布局</a></li><li><a href="/jvm/article/13091.html" class="sidebar-link">11 | 垃圾回收（上）</a></li><li><a href="/jvm/article/13137.html" class="sidebar-link">12 | 垃圾回收（下）</a></li><li><a href="/jvm/article/13484.html" class="sidebar-link">13 | Java内存模型</a></li><li><a href="/jvm/article/13530.html" class="sidebar-link">14 | Java虚拟机是怎么实现synchronized的？</a></li><li><a href="/jvm/article/13781.html" class="sidebar-link">15 | Java语法糖与Java编译器</a></li><li><a href="/jvm/article/14061.html" class="sidebar-link">16 | 即时编译（上）</a></li><li><a href="/jvm/article/14070.html" class="sidebar-link">17 | 即时编译（下）</a></li><li><a href="/jvm/article/14270.html" class="sidebar-link">18 | 即时编译器的中间表达形式</a></li><li><a href="/jvm/article/14575.html" class="sidebar-link">20 | 方法内联（上）</a></li><li><a href="/jvm/article/14652.html" class="sidebar-link">21 | 方法内联（下）</a></li><li><a href="/jvm/article/14794.html" class="sidebar-link">19 |  Java字节码（基础篇）</a></li><li><a href="/jvm/article/18046.html" class="sidebar-link">22 | HotSpot虚拟机的intrinsic</a></li><li><a href="/jvm/article/18048.html" class="sidebar-link">23 | 逃逸分析</a></li><li><a href="/jvm/article/39683.html" class="sidebar-link">24 | 字段访问相关优化</a></li><li><a href="/jvm/article/39814.html" class="sidebar-link">25 | 循环优化</a></li><li><a href="/jvm/article/39838.html" class="sidebar-link">26 | 向量化</a></li><li><a href="/jvm/article/40189.html" class="sidebar-link">27 | 注解处理器</a></li><li><a href="/jvm/article/40275.html" class="sidebar-link">28 | 基准测试框架JMH（上）</a></li><li><a href="/jvm/article/40281.html" class="sidebar-link">29 | 基准测试框架JMH（下）</a></li><li><a href="/jvm/article/40520.html" class="sidebar-link">30 | Java虚拟机的监控及诊断工具（命令行篇）</a></li><li><a href="/jvm/article/40821.html" class="sidebar-link">31 | Java虚拟机的监控及诊断工具（GUI篇）</a></li><li><a href="/jvm/article/40839.html" class="sidebar-link">32 | JNI的运行机制</a></li><li><a href="/jvm/article/41186.html" class="sidebar-link">33 | Java Agent与字节码注入</a></li><li><a href="/jvm/article/41245.html" class="sidebar-link">34 | Graal：用Java编译Java</a></li><li><a href="/jvm/article/41347.html" class="sidebar-link">35 | Truffle：语言实现框架</a></li><li><a href="/jvm/article/41582.html" class="sidebar-link">36 | SubstrateVM：AOT编译框架</a></li><li><a href="/jvm/article/41800.html" class="sidebar-link">尾声 | 道阻且长，努力加餐</a></li></ul> </div> <div class="page"> <div class="content"><p>今天我们来聊聊Java里的反射机制。</p> <p>反射是Java语言中一个相当重要的特性，它允许正在运行的Java程序观测，甚至是修改程序的动态行为。</p> <p>举例来说，我们可以通过Class对象枚举该类中的所有方法，我们还可以通过Method.setAccessible（位于java.lang.reflect包，该方法继承自AccessibleObject）绕过Java语言的访问权限，在私有方法所在类之外的地方调用该方法。</p> <p>反射在Java中的应用十分广泛。开发人员日常接触到的Java集成开发环境（IDE）便运用了这一功能：每当我们敲入点号时，IDE便会根据点号前的内容，动态展示可以访问的字段或者方法。</p> <p>另一个日常应用则是Java调试器，它能够在调试过程中枚举某一对象所有字段的值。</p> <p><img src="https://static001.geekbang.org/resource/image/ce/75/ceeabb2dbdd80577feaecd0879e42675.png" alt></p> <p>（图中eclipse的自动提示使用了反射）</p> <p>在Web开发中，我们经常能够接触到各种可配置的通用框架。为了保证框架的可扩展性，它们往往借助Java的反射机制，根据配置文件来加载不同的类。举例来说，Spring框架的依赖反转（IoC），便是依赖于反射机制。</p> <p>然而，我相信不少开发人员都嫌弃反射机制比较慢。甚至是甲骨文关于反射的教学网页[1]，也强调了反射性能开销大的缺点。</p> <p>今天我们便来了解一下反射的实现机制，以及它性能糟糕的原因。如果你对反射API不是特别熟悉的话，你可以查阅我放在文稿末尾的附录。</p> <h2 id="反射调用的实现"><a href="#反射调用的实现" aria-hidden="true" class="header-anchor">#</a> 反射调用的实现</h2> <p>首先，我们来看看方法的反射调用，也就是Method.invoke，是怎么实现的。</p> <pre><code>public final class Method extends Executable {
+  ...
+  public Object invoke(Object obj, Object... args) throws ... {
+    ... // 权限检查
+    MethodAccessor ma = methodAccessor;
+    if (ma == null) {
+      ma = acquireMethodAccessor();
+    }
+    return ma.invoke(obj, args);
+  }
+}
+</code></pre> <p>如果你查阅Method.invoke的源代码，那么你会发现，它实际上委派给MethodAccessor来处理。MethodAccessor是一个接口，它有两个已有的具体实现：一个通过本地方法来实现反射调用，另一个则使用了委派模式。为了方便记忆，我便用“本地实现”和“委派实现”来指代这两者。</p> <p>每个Method实例的第一次反射调用都会生成一个委派实现，它所委派的具体实现便是一个本地实现。本地实现非常容易理解。当进入了Java虚拟机内部之后，我们便拥有了Method实例所指向方法的具体地址。这时候，反射调用无非就是将传入的参数准备好，然后调用进入目标方法。</p> <pre><code>// v0版本
+import java.lang.reflect.Method;
+
+public class Test {
+  public static void target(int i) {
+    new Exception(&quot;#&quot; + i).printStackTrace();
+  }
+
+  public static void main(String[] args) throws Exception {
+    Class&lt;?&gt; klass = Class.forName(&quot;Test&quot;);
+    Method method = klass.getMethod(&quot;target&quot;, int.class);
+    method.invoke(null, 0);
+  }
+}
+
+# 不同版本的输出略有不同，这里我使用了Java 10。
+$ java Test
+java.lang.Exception: #0
+        at Test.target(Test.java:5)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl .invoke0(Native Method)
+ a      t java.base/jdk.internal.reflect.NativeMethodAccessorImpl. .invoke(NativeMethodAccessorImpl.java:62)
+ t       java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.i .invoke(DelegatingMethodAccessorImpl.java:43)
+        java.base/java.lang.reflect.Method.invoke(Method.java:564)
+  t        Test.main(Test.java:131
+</code></pre> <p>为了方便理解，我们可以打印一下反射调用到目标方法时的栈轨迹。在上面的v0版本代码中，我们获取了一个指向Test.target方法的Method对象，并且用它来进行反射调用。在Test.target中，我会打印出栈轨迹。</p> <p>可以看到，反射调用先是调用了Method.invoke，然后进入委派实现（DelegatingMethodAccessorImpl），再然后进入本地实现（NativeMethodAccessorImpl），最后到达目标方法。</p> <p>这里你可能会疑问，为什么反射调用还要采取委派实现作为中间层？直接交给本地实现不可以么？</p> <p>其实，Java的反射调用机制还设立了另一种动态生成字节码的实现（下称动态实现），直接使用invoke指令来调用目标方法。之所以采用委派实现，便是为了能够在本地实现以及动态实现中切换。</p> <pre><code>// 动态实现的伪代码，这里只列举了关键的调用逻辑，其实它还包括调用者检测、参数检测的字节码。
+package jdk.internal.reflect;
+
+public class GeneratedMethodAccessor1 extends ... {
+  @Overrides    
+  public Object invoke(Object obj, Object[] args) throws ... {
+    Test.target((int) args[0]);
+    return null;
+  }
+}
+</code></pre> <p>动态实现和本地实现相比，其运行效率要快上20倍 [2] 。这是因为动态实现无需经过Java到C++再到Java的切换，但由于生成字节码十分耗时，仅调用一次的话，反而是本地实现要快上3到4倍 [3]。</p> <p>考虑到许多反射调用仅会执行一次，Java虚拟机设置了一个阈值15（可以通过-Dsun.reflect.inflationThreshold=来调整），当某个反射调用的调用次数在15之下时，采用本地实现；当达到15时，便开始动态生成字节码，并将委派实现的委派对象切换至动态实现，这个过程我们称之为Inflation。</p> <p>为了观察这个过程，我将刚才的例子更改为下面的v1版本。它会将反射调用循环20次。</p> <pre><code>// v1版本
+import java.lang.reflect.Method;
+
+public class Test {
+  public static void target(int i) {
+    new Exception(&quot;#&quot; + i).printStackTrace();
+  }
+
+  public static void main(String[] args) throws Exception {
+    Class&lt;?&gt; klass = Class.forName(&quot;Test&quot;);
+    Method method = klass.getMethod(&quot;target&quot;, int.class);
+    for (int i = 0; i &lt; 20; i++) {
+      method.invoke(null, i);
+    }
+  }
+}
+
+# 使用-verbose:class打印加载的类
+$ java -verbose:class Test
+...
+java.lang.Exception: #14
+        at Test.target(Test.java:5)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl .invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl .invoke(NativeMethodAccessorImpl.java:62)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl .invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+        at Test.main(Test.java:12)
+[0.158s][info][class,load] ...
+...
+[0.160s][info][class,load] jdk.internal.reflect.GeneratedMethodAccessor1 source: __JVM_DefineClass__
+java.lang.Exception: #15
+       at Test.target(Test.java:5)
+       at java.base/jdk.internal.reflect.NativeMethodAccessorImpl .invoke0(Native Method)
+       at java.base/jdk.internal.reflect.NativeMethodAccessorImpl .invoke(NativeMethodAccessorImpl.java:62)
+       at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl .invoke(DelegatingMethodAccessorImpl.java:43)
+       at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+       at Test.main(Test.java:12)
+java.lang.Exception: #16
+       at Test.target(Test.java:5)
+       at jdk.internal.reflect.GeneratedMethodAccessor1 .invoke(Unknown Source)
+       at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl .invoke(DelegatingMethodAccessorImpl.java:43)
+       at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+       at Test.main(Test.java:12)
+...
+</code></pre> <p>可以看到，在第15次（从0开始数）反射调用时，我们便触发了动态实现的生成。这时候，Java虚拟机额外加载了不少类。其中，最重要的当属GeneratedMethodAccessor1（第30行）。并且，从第16次反射调用开始，我们便切换至这个刚刚生成的动态实现（第40行）。</p> <p>反射调用的Inflation机制是可以通过参数（-Dsun.reflect.noInflation=true）来关闭的。这样一来，在反射调用一开始便会直接生成动态实现，而不会使用委派实现或者本地实现。</p> <h2 id="反射调用的开销"><a href="#反射调用的开销" aria-hidden="true" class="header-anchor">#</a> 反射调用的开销</h2> <p>下面，我们便来拆解反射调用的性能开销。</p> <p>在刚才的例子中，我们先后进行了Class.forName，Class.getMethod以及Method.invoke三个操作。其中，Class.forName会调用本地方法，Class.getMethod则会遍历该类的公有方法。如果没有匹配到，它还将遍历父类的公有方法。可想而知，这两个操作都非常费时。</p> <p>值得注意的是，以getMethod为代表的查找方法操作，会返回查找得到结果的一份拷贝。因此，我们应当避免在热点代码中使用返回Method数组的getMethods或者getDeclaredMethods方法，以减少不必要的堆空间消耗。</p> <p>在实践中，我们往往会在应用程序中缓存Class.forName和Class.getMethod的结果。因此，下面我就只关注反射调用本身的性能开销。</p> <p>为了比较直接调用和反射调用的性能差距，我将前面的例子改为下面的v2版本。它会将反射调用循环二十亿次。此外，它还将记录下每跑一亿次的时间。</p> <p>我将取最后五个记录的平均值，作为预热后的峰值性能。（注：这种性能评估方式并不严谨，我会在专栏的第三部分介绍如何用JMH来测性能。）</p> <p>在我这个老笔记本上，一亿次直接调用耗费的时间大约在120ms。这和不调用的时间是一致的。其原因在于这段代码属于热循环，同样会触发即时编译。并且，即时编译会将对Test.target的调用内联进来，从而消除了调用的开销。</p> <pre><code>// v2版本
+mport java.lang.reflect.Method;
+
+public class Test {
+  public static void target(int i) {
+    // 空方法
+  }
+
+  public static void main(String[] args) throws Exception {
+    Class&lt;?&gt; klass = Class.forName(&quot;Test&quot;);
+    Method method = klass.getMethod(&quot;target&quot;, int.class);
+
+    long current = System.currentTimeMillis();
+    for (int i = 1; i &lt;= 2_000_000_000; i++) {
+      if (i % 100_000_000 == 0) {
+        long temp = System.currentTimeMillis();
+        System.out.println(temp - current);
+        current = temp;
+      }
+
+      method.invoke(null, 128);
+    }
+  }
+}
+</code></pre> <p>下面我将以120ms作为基准，来比较反射调用的性能开销。</p> <p>由于目标方法Test.target接收一个int类型的参数，因此我传入128作为反射调用的参数，测得的结果约为基准的2.7倍。我们暂且不管这个数字是高是低，先来看看在反射调用之前字节码都做了什么。</p> <pre><code>   59: aload_2                         // 加载Method对象
+   60: aconst_null                     // 反射调用的第一个参数null
+   61: iconst_1
+   62: anewarray Object                // 生成一个长度为1的Object数组
+   65: dup
+   66: iconst_0
+   67: sipush 128
+   70: invokestatic Integer.valueOf    // 将128自动装箱成Integer
+   73: aastore                         // 存入Object数组中
+   74: invokevirtual Method.invoke     // 反射调用
+</code></pre> <p>这里我截取了循环中反射调用编译而成的字节码。可以看到，这段字节码除了反射调用外，还额外做了两个操作。</p> <p>第一，由于Method.invoke是一个变长参数方法，在字节码层面它的最后一个参数会是Object数组（感兴趣的同学私下可以用javap查看）。Java编译器会在方法调用处生成一个长度为传入参数数量的Object数组，并将传入参数一一存储进该数组中。</p> <p>第二，由于Object数组不能存储基本类型，Java编译器会对传入的基本类型参数进行自动装箱。</p> <p>这两个操作除了带来性能开销外，还可能占用堆内存，使得GC更加频繁。（如果你感兴趣的话，可以用虚拟机参数-XX:+PrintGC试试。）那么，如何消除这部分开销呢？</p> <p>关于第二个自动装箱，Java缓存了[-128, 127]中所有整数所对应的Integer对象。当需要自动装箱的整数在这个范围之内时，便返回缓存的Integer，否则需要新建一个Integer对象。</p> <p>因此，我们可以将这个缓存的范围扩大至覆盖128（对应参数<br>
+-Djava.lang.Integer.IntegerCache.high=128），便可以避免需要新建Integer对象的场景。</p> <p>或者，我们可以在循环外缓存128自动装箱得到的Integer对象，并且直接传入反射调用中。这两种方法测得的结果差不多，约为基准的1.8倍。</p> <p>现在我们再回来看看第一个因变长参数而自动生成的Object数组。既然每个反射调用对应的参数个数是固定的，那么我们可以选择在循环外新建一个Object数组，设置好参数，并直接交给反射调用。改好的代码可以参照文稿中的v3版本。</p> <pre><code>// v3版本
+import java.lang.reflect.Method;
+
+public class Test {
+  public static void target(int i) {
+    // 空方法
+  }
+
+  public static void main(String[] args) throws Exception {
+    Class&lt;?&gt; klass = Class.forName(&quot;Test&quot;);
+    Method method = klass.getMethod(&quot;target&quot;, int.class);
+
+    Object[] arg = new Object[1]; // 在循环外构造参数数组
+    arg[0] = 128;
+
+    long current = System.currentTimeMillis();
+    for (int i = 1; i &lt;= 2_000_000_000; i++) {
+      if (i % 100_000_000 == 0) {
+        long temp = System.currentTimeMillis();
+        System.out.println(temp - current);
+        current = temp;
+      }
+
+      method.invoke(null, arg);
+    }
+  }
+}
+</code></pre> <p>测得的结果反而更糟糕了，为基准的2.9倍。这是为什么呢？</p> <p>如果你在上一步解决了自动装箱之后查看运行时的GC状况，你会发现这段程序并不会触发GC。其原因在于，原本的反射调用被内联了，从而使得即时编译器中的逃逸分析将原本新建的Object数组判定为不逃逸的对象。</p> <p>如果一个对象不逃逸，那么即时编译器可以选择栈分配甚至是虚拟分配，也就是不占用堆空间。具体我会在本专栏的第二部分详细解释。</p> <p>如果在循环外新建数组，即时编译器无法确定这个数组会不会中途被更改，因此无法优化掉访问数组的操作，可谓是得不偿失。</p> <p>到目前为止，我们的最好记录是1.8倍。那能不能再进一步提升呢？</p> <p>刚才我曾提到，可以关闭反射调用的Inflation机制，从而取消委派实现，并且直接使用动态实现。此外，每次反射调用都会检查目标方法的权限，而这个检查同样可以在Java代码里关闭，在关闭了这两项机制之后，也就得到了我们的v4版本，它测得的结果约为基准的1.3倍。</p> <pre><code>// v4版本
+import java.lang.reflect.Method;
+
+// 在运行指令中添加如下两个虚拟机参数：
+// -Djava.lang.Integer.IntegerCache.high=128
+// -Dsun.reflect.noInflation=true
+public class Test {
+  public static void target(int i) {
+    // 空方法
+  }
+
+  public static void main(String[] args) throws Exception {
+    Class&lt;?&gt; klass = Class.forName(&quot;Test&quot;);
+    Method method = klass.getMethod(&quot;target&quot;, int.class);
+    method.setAccessible(true);  // 关闭权限检查
+
+    long current = System.currentTimeMillis();
+    for (int i = 1; i &lt;= 2_000_000_000; i++) {
+      if (i % 100_000_000 == 0) {
+        long temp = System.currentTimeMillis();
+        System.out.println(temp - current);
+        current = temp;
+      }
+
+      method.invoke(null, 128);
+    }
+  }
+}
+</code></pre> <p>到这里，我们基本上把反射调用的水分都榨干了。接下来，我来把反射调用的性能开销给提回去。</p> <p>首先，在这个例子中，之所以反射调用能够变得这么快，主要是因为即时编译器中的方法内联。在关闭了Inflation的情况下，内联的瓶颈在于Method.invoke方法中对MethodAccessor.invoke方法的调用。</p> <p><img src="https://static001.geekbang.org/resource/image/93/b5/93dec45b7af7951a2b6daeb01941b9b5.png" alt></p> <p>我会在后面的文章中介绍方法内联的具体实现，这里先说个结论：在生产环境中，我们往往拥有多个不同的反射调用，对应多个GeneratedMethodAccessor，也就是动态实现。</p> <p>由于Java虚拟机的关于上述调用点的类型profile（注：对于invokevirtual或者invokeinterface，Java虚拟机会记录下调用者的具体类型，我们称之为类型profile）无法同时记录这么多个类，因此可能造成所测试的反射调用没有被内联的情况。</p> <pre><code>// v5版本
+import java.lang.reflect.Method;
+
+public class Test {
+  public static void target(int i) {
+    // 空方法
+  }
+
+  public static void main(String[] args) throws Exception {
+    Class&lt;?&gt; klass = Class.forName(&quot;Test&quot;);
+    Method method = klass.getMethod(&quot;target&quot;, int.class);
+    method.setAccessible(true);  // 关闭权限检查
+    polluteProfile();
+
+    long current = System.currentTimeMillis();
+    for (int i = 1; i &lt;= 2_000_000_000; i++) {
+      if (i % 100_000_000 == 0) {
+        long temp = System.currentTimeMillis();
+        System.out.println(temp - current);
+        current = temp;
+      }
+
+      method.invoke(null, 128);
+    }
+  }
+
+  public static void polluteProfile() throws Exception {
+    Method method1 = Test.class.getMethod(&quot;target1&quot;, int.class);
+    Method method2 = Test.class.getMethod(&quot;target2&quot;, int.class);
+    for (int i = 0; i &lt; 2000; i++) {
+      method1.invoke(null, 0);
+      method2.invoke(null, 0);
+    }
+  }
+  public static void target1(int i) { }
+  public static void target2(int i) { }
+}
+</code></pre> <p>在上面的v5版本中，我在测试循环之前调用了polluteProfile的方法。该方法将反射调用另外两个方法，并且循环上2000遍。</p> <p>而测试循环则保持不变。测得的结果约为基准的6.7倍。也就是说，只要误扰了Method.invoke方法的类型profile，性能开销便会从1.3倍上升至6.7倍。</p> <p>之所以这么慢，除了没有内联之外，另外一个原因是逃逸分析不再起效。这时候，我们便可以采用刚才v3版本中的解决方案，在循环外构造参数数组，并直接传递给反射调用。这样子测得的结果约为基准的5.2倍。</p> <p>除此之外，我们还可以提高Java虚拟机关于每个调用能够记录的类型数目（对应虚拟机参数-XX:TypeProfileWidth，默认值为2，这里设置为3）。最终测得的结果约为基准的2.8倍，尽管它和原本的1.3倍还有一定的差距，但总算是比6.7倍好多了。</p> <h2 id="总结与实践"><a href="#总结与实践" aria-hidden="true" class="header-anchor">#</a> 总结与实践</h2> <p>今天我介绍了Java里的反射机制。</p> <p>在默认情况下，方法的反射调用为委派实现，委派给本地实现来进行方法调用。在调用超过15次之后，委派实现便会将委派对象切换至动态实现。这个动态实现的字节码是自动生成的，它将直接使用invoke指令来调用目标方法。</p> <p>方法的反射调用会带来不少性能开销，原因主要有三个：变长参数方法导致的Object数组，基本类型的自动装箱、拆箱，还有最重要的方法内联。</p> <p>今天的实践环节，你可以将最后一段代码中polluteProfile方法的两个Method对象，都改成获取名字为“target”的方法。请问这两个获得的Method对象是同一个吗（==）？他们equal吗（.equals(…)）？对我们的运行结果有什么影响？</p> <pre><code>import java.lang.reflect.Method;
+
+public class Test {
+  public static void target(int i) {
+    // 空方法
+  }
+
+  public static void main(String[] args) throws Exception {
+    Class&lt;?&gt; klass = Class.forName(&quot;Test&quot;);
+    Method method = klass.getMethod(&quot;target&quot;, int.class);
+    method.setAccessible(true);  // 关闭权限检查
+    polluteProfile();
+
+    long current = System.currentTimeMillis();
+    for (int i = 1; i &lt;= 2_000_000_000; i++) {
+      if (i % 100_000_000 == 0) {
+        long temp = System.currentTimeMillis();
+        System.out.println(temp - current);
+        current = temp;
+      }
+
+      method.invoke(null, 128);
+    }
+  }
+
+  public static void polluteProfile() throws Exception {
+    Method method1 = Test.class.getMethod(&quot;target&quot;, int.class);
+    Method method2 = Test.class.getMethod(&quot;target&quot;, int.class);
+    for (int i = 0; i &lt; 2000; i++) {
+      method1.invoke(null, 0);
+      method2.invoke(null, 0);
+    }
+  }
+  public static void target1(int i) { }
+  public static void target2(int i) { }
+}
+</code></pre> <h2 id="附录：反射api简介"><a href="#附录：反射api简介" aria-hidden="true" class="header-anchor">#</a> 附录：反射API简介</h2> <p>通常来说，使用反射API的第一步便是获取Class对象。在Java中常见的有这么三种。</p> <ol><li>使用静态方法Class.forName来获取。</li> <li>调用对象的getClass()方法。</li> <li>直接用类名+“.class”访问。对于基本类型来说，它们的包装类型（wrapper classes）拥有一个名为“TYPE”的final静态字段，指向该基本类型对应的Class对象。</li></ol> <p>例如，Integer.TYPE指向int.class。对于数组类型来说，可以使用类名+“[ ].class”来访问，如int[ ].class。</p> <p>除此之外，Class类和java.lang.reflect包中还提供了许多返回Class对象的方法。例如，对于数组类的Class对象，调用Class.getComponentType()方法可以获得数组元素的类型。</p> <p>一旦得到了Class对象，我们便可以正式地使用反射功能了。下面我列举了较为常用的几项。</p> <ol><li><p>使用newInstance()来生成一个该类的实例。它要求该类中拥有一个无参数的构造器。</p></li> <li><p>使用isInstance(Object)来判断一个对象是否该类的实例，语法上等同于instanceof关键字（JIT优化时会有差别，我会在本专栏的第二部分详细介绍）。</p></li> <li><p>使用Array.newInstance(Class,int)来构造该类型的数组。</p></li> <li><p>使用getFields()/getConstructors()/getMethods()来访问该类的成员。除了这三个之外，Class类还提供了许多其他方法，详见[4]。需要注意的是，方法名中带Declared的不会返回父类的成员，但是会返回私有成员；而不带Declared的则相反。</p></li></ol> <p>当获得了类成员之后，我们可以进一步做如下操作。</p> <ul><li>使用Constructor/Field/Method.setAccessible(true)来绕开Java语言的访问限制。</li> <li>使用Constructor.newInstance(Object[])来生成该类的实例。</li> <li>使用Field.get/set(Object)来访问字段的值。</li> <li>使用Method.invoke(Object, Object[])来调用方法。</li></ul> <p>有关反射API的其他用法，可以参考reflect包的javadoc [5] ，这里就不详细展开了。</p> <p>[1] : <a href="https://docs.oracle.com/javase/tutorial/reflect/" target="_blank" rel="noopener noreferrer">https://docs.oracle.com/javase/tutorial/reflect/<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a><br>
+[2]: <a href="http://hg.openjdk.java.net/jdk10/jdk10/jdk/file/777356696811/src/java.base/share/classes/jdk/internal/reflect/ReflectionFactory.java#l80" target="_blank" rel="noopener noreferrer">http://hg.openjdk.java.net/jdk10/jdk10/jdk/file/777356696811/src/java.base/share/classes/jdk/internal/reflect/ReflectionFactory.java#l80<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a><br>
+[3]: <a href="http://hg.openjdk.java.net/jdk10/jdk10/jdk/file/777356696811/src/java.base/share/classes/jdk/internal/reflect/ReflectionFactory.java#l78" target="_blank" rel="noopener noreferrer">http://hg.openjdk.java.net/jdk10/jdk10/jdk/file/777356696811/src/java.base/share/classes/jdk/internal/reflect/ReflectionFactory.java#l78<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a><br>
+[4]: <a href="https://docs.oracle.com/javase/tutorial/reflect/class/classMembers.html" target="_blank" rel="noopener noreferrer">https://docs.oracle.com/javase/tutorial/reflect/class/classMembers.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a><br>
+[5]: <a href="https://docs.oracle.com/javase/10/docs/api/java/lang/reflect/package-summary.html" target="_blank" rel="noopener noreferrer">https://docs.oracle.com/javase/10/docs/api/java/lang/reflect/package-summary.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><img src="https://static001.geekbang.org/resource/image/2a/d5/2a62e58cbdf56a5dc40748567d346fd5.jpg" alt></p></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/jvm/article/12134.html" class="prev">
+          06 | JVM是如何处理异常的？
+        </a></span> <span class="next"><a href="/jvm/article/12423.html">
+          【工具篇】 常用工具介绍
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/jvm/assets/js/app.b0c224e1.js" defer></script><script src="/jvm/assets/js/11.bfe83943.js" defer></script>
+  </body>
+</html>

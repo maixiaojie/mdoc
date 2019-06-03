@@ -8,7 +8,15 @@
     "docs:build": "vuepress build docs",
     "ds:dev": "vuepress dev ds",
     "ds:build": "vuepress build ds",
-    "build": "npm run docs:build && npm run ds:build"
+    "jvm:dev": "vuepress dev jvm",
+    "jvm:build": "vuepress build jvm",
+    "net:dev": "vuepress dev netprotocol",
+    "net:build": "vuepress build netprotocol",
+    "air:dev": "vuepress dev air",
+    "air:build": "vuepress build air",
+    "blockchain:dev": "vuepress dev blockchain",
+    "blockchain:build": "vuepress build blockchain",
+    "build": "npm run docs:build && npm run ds:build && npm run jvm:build && npm run net:build && npm run air:build && npm run blockchain:build"
   },
   "author": "",
   "license": "ISC",

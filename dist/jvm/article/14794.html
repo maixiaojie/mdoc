@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>深入拆解 Java 虚拟机</title>
+    <meta name="description" content="Deep Dismantling of Java Virtual Machines">
+    <link rel="icon" href="/jvm/logo.png">
+    
+    <link rel="preload" href="/jvm/assets/css/0.styles.80faf303.css" as="style"><link rel="preload" href="/jvm/assets/js/app.b0c224e1.js" as="script"><link rel="preload" href="/jvm/assets/js/26.33fc6899.js" as="script"><link rel="prefetch" href="/jvm/assets/js/10.b4a8a827.js"><link rel="prefetch" href="/jvm/assets/js/11.bfe83943.js"><link rel="prefetch" href="/jvm/assets/js/12.b25aa468.js"><link rel="prefetch" href="/jvm/assets/js/13.f35b4b14.js"><link rel="prefetch" href="/jvm/assets/js/14.d49650d6.js"><link rel="prefetch" href="/jvm/assets/js/15.5a71ef71.js"><link rel="prefetch" href="/jvm/assets/js/16.39144d7d.js"><link rel="prefetch" href="/jvm/assets/js/17.1a61435a.js"><link rel="prefetch" href="/jvm/assets/js/18.95b1bee1.js"><link rel="prefetch" href="/jvm/assets/js/19.1dd19d7a.js"><link rel="prefetch" href="/jvm/assets/js/2.d2d3b164.js"><link rel="prefetch" href="/jvm/assets/js/20.5dfbcdd0.js"><link rel="prefetch" href="/jvm/assets/js/21.fce787bf.js"><link rel="prefetch" href="/jvm/assets/js/22.063ac2ae.js"><link rel="prefetch" href="/jvm/assets/js/23.9db307ef.js"><link rel="prefetch" href="/jvm/assets/js/24.3009a915.js"><link rel="prefetch" href="/jvm/assets/js/25.648c2c86.js"><link rel="prefetch" href="/jvm/assets/js/27.cb22d900.js"><link rel="prefetch" href="/jvm/assets/js/28.634ebc75.js"><link rel="prefetch" href="/jvm/assets/js/29.f411aaad.js"><link rel="prefetch" href="/jvm/assets/js/3.f64f10dc.js"><link rel="prefetch" href="/jvm/assets/js/30.60b08124.js"><link rel="prefetch" href="/jvm/assets/js/31.214f3fb7.js"><link rel="prefetch" href="/jvm/assets/js/32.3b4d182b.js"><link rel="prefetch" href="/jvm/assets/js/33.bd3d415a.js"><link rel="prefetch" href="/jvm/assets/js/34.3d46a13b.js"><link rel="prefetch" href="/jvm/assets/js/35.0b788f34.js"><link rel="prefetch" href="/jvm/assets/js/36.92608b69.js"><link rel="prefetch" href="/jvm/assets/js/37.d2ff4488.js"><link rel="prefetch" href="/jvm/assets/js/38.88385b69.js"><link rel="prefetch" href="/jvm/assets/js/39.6ebedb05.js"><link rel="prefetch" href="/jvm/assets/js/4.cecc0b55.js"><link rel="prefetch" href="/jvm/assets/js/40.c04c4d3f.js"><link rel="prefetch" href="/jvm/assets/js/41.400ac52b.js"><link rel="prefetch" href="/jvm/assets/js/42.1b347f87.js"><link rel="prefetch" href="/jvm/assets/js/43.49db281a.js"><link rel="prefetch" href="/jvm/assets/js/5.7f9cb687.js"><link rel="prefetch" href="/jvm/assets/js/6.d3241020.js"><link rel="prefetch" href="/jvm/assets/js/7.f5fe3fc4.js"><link rel="prefetch" href="/jvm/assets/js/8.61fdea72.js"><link rel="prefetch" href="/jvm/assets/js/9.33c162e9.js">
+    <link rel="stylesheet" href="/jvm/assets/css/0.styles.80faf303.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jvm/" class="home-link router-link-active"><!----> <span class="site-name">深入拆解 Java 虚拟机</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jvm/" class="nav-link">Home</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">其他专栏</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/frontend/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  重学前端
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/ds/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  数据结构与算法之美
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/netprotocol/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  趣谈网络协议
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/air/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  左耳听风
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/blockchain/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  深入浅出区块链
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jvm/" class="nav-link">Home</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">其他专栏</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/frontend/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  重学前端
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/ds/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  数据结构与算法之美
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/netprotocol/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  趣谈网络协议
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/air/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  左耳听风
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://doc.mcust.cn/blockchain/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  深入浅出区块链
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/jvm/article/11074.html" class="sidebar-link">开篇词 | 为什么我们要学习Java虚拟机？</a></li><li><a href="/jvm/article/11289.html" class="sidebar-link">01 | Java代码是怎么运行的？</a></li><li><a href="/jvm/article/11503.html" class="sidebar-link">02 | Java的基本类型</a></li><li><a href="/jvm/article/11523.html" class="sidebar-link">03 | Java虚拟机是如何加载Java类的?</a></li><li><a href="/jvm/article/11539.html" class="sidebar-link">04 | JVM是如何执行方法调用的？（上）</a></li><li><a href="/jvm/article/12098.html" class="sidebar-link">05 | JVM是如何执行方法调用的？（下）</a></li><li><a href="/jvm/article/12134.html" class="sidebar-link">06 | JVM是如何处理异常的？</a></li><li><a href="/jvm/article/12192.html" class="sidebar-link">07 | JVM是如何实现反射的？</a></li><li><a href="/jvm/article/12423.html" class="sidebar-link">【工具篇】 常用工具介绍</a></li><li><a href="/jvm/article/12564.html" class="sidebar-link">08 | JVM是怎么实现invokedynamic的？（上）</a></li><li><a href="/jvm/article/12574.html" class="sidebar-link">09 | JVM是怎么实现invokedynamic的？（下）</a></li><li><a href="/jvm/article/13081.html" class="sidebar-link">10 | Java对象的内存布局</a></li><li><a href="/jvm/article/13091.html" class="sidebar-link">11 | 垃圾回收（上）</a></li><li><a href="/jvm/article/13137.html" class="sidebar-link">12 | 垃圾回收（下）</a></li><li><a href="/jvm/article/13484.html" class="sidebar-link">13 | Java内存模型</a></li><li><a href="/jvm/article/13530.html" class="sidebar-link">14 | Java虚拟机是怎么实现synchronized的？</a></li><li><a href="/jvm/article/13781.html" class="sidebar-link">15 | Java语法糖与Java编译器</a></li><li><a href="/jvm/article/14061.html" class="sidebar-link">16 | 即时编译（上）</a></li><li><a href="/jvm/article/14070.html" class="sidebar-link">17 | 即时编译（下）</a></li><li><a href="/jvm/article/14270.html" class="sidebar-link">18 | 即时编译器的中间表达形式</a></li><li><a href="/jvm/article/14575.html" class="sidebar-link">20 | 方法内联（上）</a></li><li><a href="/jvm/article/14652.html" class="sidebar-link">21 | 方法内联（下）</a></li><li><a href="/jvm/article/14794.html" class="active sidebar-link">19 |  Java字节码（基础篇）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jvm/article/14794.html#操作数栈" class="sidebar-link">操作数栈</a></li><li class="sidebar-sub-header"><a href="/jvm/article/14794.html#局部变量区" class="sidebar-link">局部变量区</a></li><li class="sidebar-sub-header"><a href="/jvm/article/14794.html#综合示例" class="sidebar-link">综合示例</a></li><li class="sidebar-sub-header"><a href="/jvm/article/14794.html#java字节码简介" class="sidebar-link">Java字节码简介</a></li><li class="sidebar-sub-header"><a href="/jvm/article/14794.html#总结与实践" class="sidebar-link">总结与实践</a></li></ul></li><li><a href="/jvm/article/18046.html" class="sidebar-link">22 | HotSpot虚拟机的intrinsic</a></li><li><a href="/jvm/article/18048.html" class="sidebar-link">23 | 逃逸分析</a></li><li><a href="/jvm/article/39683.html" class="sidebar-link">24 | 字段访问相关优化</a></li><li><a href="/jvm/article/39814.html" class="sidebar-link">25 | 循环优化</a></li><li><a href="/jvm/article/39838.html" class="sidebar-link">26 | 向量化</a></li><li><a href="/jvm/article/40189.html" class="sidebar-link">27 | 注解处理器</a></li><li><a href="/jvm/article/40275.html" class="sidebar-link">28 | 基准测试框架JMH（上）</a></li><li><a href="/jvm/article/40281.html" class="sidebar-link">29 | 基准测试框架JMH（下）</a></li><li><a href="/jvm/article/40520.html" class="sidebar-link">30 | Java虚拟机的监控及诊断工具（命令行篇）</a></li><li><a href="/jvm/article/40821.html" class="sidebar-link">31 | Java虚拟机的监控及诊断工具（GUI篇）</a></li><li><a href="/jvm/article/40839.html" class="sidebar-link">32 | JNI的运行机制</a></li><li><a href="/jvm/article/41186.html" class="sidebar-link">33 | Java Agent与字节码注入</a></li><li><a href="/jvm/article/41245.html" class="sidebar-link">34 | Graal：用Java编译Java</a></li><li><a href="/jvm/article/41347.html" class="sidebar-link">35 | Truffle：语言实现框架</a></li><li><a href="/jvm/article/41582.html" class="sidebar-link">36 | SubstrateVM：AOT编译框架</a></li><li><a href="/jvm/article/41800.html" class="sidebar-link">尾声 | 道阻且长，努力加餐</a></li></ul> </div> <div class="page"> <div class="content"><p>在前面的篇章中，有不少同学反馈对Java字节码并不是特别熟悉。那么今天我便来系统性地介绍一遍Java字节码。</p> <h2 id="操作数栈"><a href="#操作数栈" aria-hidden="true" class="header-anchor">#</a> 操作数栈</h2> <p>我们知道，Java字节码是Java虚拟机所使用的指令集。因此，它与Java虚拟机基于栈的计算模型是密不可分的。</p> <p>在解释执行过程中，每当为Java方法分配栈桢时，Java虚拟机往往需要开辟一块额外的空间作为操作数栈，来存放计算的操作数以及返回结果。</p> <p>具体来说便是：执行每一条指令之前，Java虚拟机要求该指令的操作数已被压入操作数栈中。在执行指令时，Java虚拟机会将该指令所需的操作数弹出，并且将指令的结果重新压入栈中。</p> <p><img src="https://static001.geekbang.org/resource/image/13/21/13720f6eb83d096ec600309648330821.png" alt></p> <p>以加法指令iadd为例。假设在执行该指令前，栈顶的两个元素分别为int值1和int值2，那么iadd指令将弹出这两个int，并将求得的和int值3压入栈中。</p> <p><img src="https://static001.geekbang.org/resource/image/13/db/138c20e60c081c8698770ff8d5d93fdb.png" alt></p> <p>由于iadd指令只消耗栈顶的两个元素，因此，对于离栈顶距离为2的元素，即图中的问号，iadd指令并不关心它是否存在，更加不会对其进行修改。</p> <p>Java字节码中有好几条指令是直接作用在操作数栈上的。最为常见的便是dup： 复制栈顶元素，以及pop：舍弃栈顶元素。</p> <p>dup指令常用于复制new指令所生成的未经初始化的引用。例如在下面这段代码的foo方法中，当执行new指令时，Java虚拟机将指向一块已分配的、未初始化的内存的引用压入操作数栈中。</p> <pre><code>  public void foo() {
+    Object o = new Object();
+  }
+  // 对应的字节码如下：
+  public void foo();
+    0  new java.lang.Object [3]
+    3  dup
+    4  invokespecial java.lang.Object() [8]
+    7  astore_1 [o]
+    8  return
+</code></pre> <p>接下来，我们需要以这个引用为调用者，调用其构造器，也就是上面字节码中的invokespecial指令。要注意，该指令将消耗操作数栈上的元素，作为它的调用者以及参数（不过Object的构造器不需要参数）。</p> <p>因此，我们需要利用dup指令复制一份new指令的结果，并用来调用构造器。当调用返回之后，操作数栈上仍有原本由new指令生成的引用，可用于接下来的操作（即偏移量为7的字节码，下面会介绍到）。</p> <p>pop指令则常用于舍弃调用指令的返回结果。例如在下面这段代码的foo方法中，我将调用静态方法bar，但是却不用其返回值。</p> <p>由于对应的invokestatic指令仍旧会将返回值压入foo方法的操作数栈中，因此Java虚拟机需要额外执行pop指令，将返回值舍弃。</p> <pre><code>  public static boolean bar() {
+    return false;
+  }
+
+  public void foo() {
+    bar();
+  }
+  // foo方法对应的字节码如下：
+  public void foo();
+    0  invokestatic FooTest.bar() : boolean [24]
+    3  pop
+    4  return
+</code></pre> <p>需要注意的是，上述两条指令只能处理非long或者非double类型的值，这是因为long类型或者double类型的值，需要占据两个栈单元。当遇到这些值时，我们需要同时复制栈顶两个单元的dup2指令，以及弹出栈顶两个单元的pop2指令。</p> <p>除此之外，不算常见但也是直接作用于操作数栈的还有swap指令，它将交换栈顶两个元素的值。</p> <p>在Java字节码中，有一部分指令可以直接将常量加载到操作数栈上。以int类型为例，Java虚拟机既可以通过iconst指令加载-1至5之间的int值，也可以通过bipush、sipush加载一个字节、两个字节所能代表的int值。</p> <p>Java虚拟机还可以通过ldc加载常量池中的常量值，例如ldc #18将加载常量池中的第18项。</p> <p>这些常量包括int类型、long类型、float类型、double类型、String类型以及Class类型的常量。</p> <p><img src="https://static001.geekbang.org/resource/image/0d/8f/0dfbecf954660bcdc76eac65beac1e8f.jpg" alt></p> <p><strong>常数加载指令表</strong></p> <p>正常情况下，操作数栈的压入弹出都是一条条指令完成的。唯一的例外情况是在抛异常时，Java虚拟机会清除操作数栈上的所有内容，而后将异常实例压入操作数栈上。</p> <h2 id="局部变量区"><a href="#局部变量区" aria-hidden="true" class="header-anchor">#</a> 局部变量区</h2> <p>Java方法栈桢的另外一个重要组成部分则是局部变量区，字节码程序可以将计算的结果缓存在局部变量区之中。</p> <p>实际上，Java虚拟机将局部变量区当成一个数组，依次存放this指针（仅非静态方法），所传入的参数，以及字节码中的局部变量。</p> <p>和操作数栈一样，long类型以及double类型的值将占据两个单元，其余类型仅占据一个单元。</p> <pre><code>public void foo(long l, float f) {
+  {
+    int i = 0;
+  }
+  {
+    String s = &quot;Hello, World&quot;;
+  }
+}
+</code></pre> <p>以上面这段代码中的foo方法为例，由于它是一个实例方法，因此局部变量数组的第0个单元存放着this指针。</p> <p>第一个参数为long类型，于是数组的1、2两个单元存放着所传入的long类型参数的值。第二个参数则是float类型，于是数组的第3个单元存放着所传入的float类型参数的值。</p> <p><img src="https://static001.geekbang.org/resource/image/22/d9/228d0f5f2d6437e7aca87c6df2d01bd9.png" alt></p> <p>在方法体里的两个代码块中，我分别定义了两个局部变量i和s。由于这两个局部变量的生命周期没有重合之处，因此，Java编译器可以将它们编排至同一单元中。也就是说，局部变量数组的第4个单元将为i或者s。</p> <p>存储在局部变量区的值，通常需要加载至操作数栈中，方能进行计算，得到计算结果后再存储至局部变量数组中。这些加载、存储指令是区分类型的。例如，int类型的加载指令为iload，存储指令为istore。</p> <p><img src="https://static001.geekbang.org/resource/image/83/f9/83ece83ecd260c2eda282747467e49f9.jpg" alt><br> <strong>局部变量区访问指令表</strong></p> <p>局部变量数组的加载、存储指令都需要指明所加载单元的下标。举例来说，aload 0指的是加载第0个单元所存储的引用，在前面示例中的foo方法里指的便是加载this指针。</p> <p>在我印象中，Java字节码中唯一能够直接作用于局部变量区的指令是iinc M N（M为非负整数，N为整数）。该指令指的是将局部变量数组的第M个单元中的int值增加N，常用于for循环中自增量的更新。</p> <pre><code>  public void foo() {
+    for (int i = 100; i&gt;=0; i--) {}
+  }
+  // 对应的字节码如下：
+  public void foo();
+     0  bipush 100
+     2  istore_1 [i]
+     3  goto 9
+     6  iinc 1 -1 [i] // i--
+     9  iload_1 [i]
+    10  ifge 6
+    13  return
+</code></pre> <h2 id="综合示例"><a href="#综合示例" aria-hidden="true" class="header-anchor">#</a> 综合示例</h2> <p>下面我们来看一个综合的例子：</p> <pre><code>public static int bar(int i) {
+  return ((i + 1) - 2) * 3 / 4;
+}
+// 对应的字节码如下：
+Code:
+  stack=2, locals=1, args_size=1
+     0: iload_0
+     1: iconst_1
+     2: iadd
+     3: iconst_2
+     4: isub
+     5: iconst_3
+     6: imul
+     7: iconst_4
+     8: idiv
+     9: ireturn
+</code></pre> <p>这里我定义了一个bar方法。它将接收一个int类型的参数，进行一系列计算之后再返回。</p> <p>对应的字节码中的stack=2, locals=1代表该方法需要的操作数栈空间为2，局部变量数组空间为1。当调用bar(5)时，每条指令执行前后局部变量数组空间以及操作数栈的分布如下：</p> <p><img src="https://static001.geekbang.org/resource/image/c5/32/c57cb9c2222f0f79459bf4c58e1a4c32.png" alt></p> <h2 id="java字节码简介"><a href="#java字节码简介" aria-hidden="true" class="header-anchor">#</a> Java字节码简介</h2> <p>前面我已经介绍了加载常量指令、操作数栈专用指令以及局部变量区访问指令。下面我们来看看其他的类别。</p> <p>Java相关指令，包括各类具备高层语义的字节码，即new（后跟目标类，生成该类的未初始化的对象），instanceof（后跟目标类，判断栈顶元素是否为目标类/接口的实例。是则压入1，否则压入0），checkcast（后跟目标类，判断栈顶元素是否为目标类/接口的实例。如果不是便抛出异常），athrow（将栈顶异常抛出），以及monitorenter（为栈顶对象加锁）和monitorexit（为栈顶对象解锁）。</p> <p>此外，该类型的指令还包括字段访问指令，即静态字段访问指令getstatic、putstatic，和实例字段访问指令getfield、putfield。这四条指令均附带用以定位目标字段的信息，但所消耗的操作数栈元素皆不同。</p> <p><img src="https://static001.geekbang.org/resource/image/da/d9/da3ff3aa4aaa2531d23286fec65b08d9.png" alt></p> <p>以putfield为例，在上图中，它会把值v存储至对象obj的目标字段之中。</p> <p>方法调用指令，包括invokestatic，invokespecial，invokevirtual，invokeinterface以及invokedynamic。这几条字节码我们已经反反复复提及了，就不再具体介绍各自的含义了。</p> <p>除invokedynamic外，其他的方法调用指令所消耗的操作数栈元素是根据调用类型以及目标方法描述符来确定的。在进行方法调用之前，程序需要依次压入调用者（invokestatic不需要），以及各个参数。</p> <pre><code>  public int neg(int i) {
+    return -i;
+  }
+
+  public int foo(int i) {
+    return neg(neg(i));
+  }
+  // foo方法对应的字节码如下：foo方法对应的字节码如下：
+  public int foo(int i);
+    0  aload_0 [this]
+    1  aload_0 [this]
+    2  iload_1 [i]
+    3  invokevirtual FooTest.neg(int) : int [25]
+    6  invokevirtual FooTest.neg(int) : int [25]
+    9  ireturn
+</code></pre> <p>以上面这段代码为例，当调用foo(2)时，每条指令执行前后局部变量数组空间以及操作数栈的分布如下所示：</p> <p><img src="https://static001.geekbang.org/resource/image/47/95/476fa1bcb6b36b5b651c2a4101073295.png" alt></p> <p>数组相关指令，包括新建基本类型数组的newarray，新建引用类型数组的anewarray，生成多维数组的multianewarray，以及求数组长度的arraylength。另外，它还包括数组的加载指令以及存储指令。这些指令是区分类型的。例如，int数组的加载指令为iaload，存储指令为iastore。</p> <p><img src="https://static001.geekbang.org/resource/image/5d/1f/5d935dcdd55e9f8461a6e5b0ac22001f.jpg" alt></p> <p><strong>数组访问指令表</strong></p> <p>控制流指令，包括无条件跳转goto，条件跳转指令，tableswitch和lookupswtich（前者针对密集的cases，后者针对稀疏的cases），返回指令，以及被废弃的jsr，ret指令。其中返回指令是区分类型的。例如，返回int值的指令为ireturn。</p> <p><img src="https://static001.geekbang.org/resource/image/f5/f0/f5195b5425a9547af9ce8371aef5c4f0.jpg" alt></p> <p><strong>返回指令表</strong></p> <p>除返回指令外，其他的控制流指令均附带一个或者多个字节码偏移量，代表需要跳转到的位置。例如下面的abs方法中偏移量为1的条件跳转指令，当栈顶元素小于0时，跳转至偏移量为6的字节码。</p> <pre><code>  public int abs(int i) {
+    if (i &gt;= 0) {
+      return i;
+    }
+    return -i;
+  }
+  // 对应的字节码如下所示：
+  public int abs(int i);
+    0  iload_1 [i]
+    1  iflt 6
+    4  iload_1 [i]
+    5  ireturn
+    6  iload_1 [i]
+    7  ineg
+    8  ireturn
+</code></pre> <p>剩余的Java字节码几乎都和计算相关，这里就不再详细阐述了。</p> <h2 id="总结与实践"><a href="#总结与实践" aria-hidden="true" class="header-anchor">#</a> 总结与实践</h2> <p>今天我简单介绍了各种类型的Java字节码。</p> <p>Java方法的栈桢分为操作数栈和局部变量区。通常来说，程序需要将变量从局部变量区加载至操作数栈中，进行一番运算之后再存储回局部变量区中。</p> <p>Java字节码可以划分为很多种类型，如加载常量指令，操作数栈专用指令，局部变量区访问指令，Java相关指令，方法调用指令，数组相关指令，控制流指令，以及计算相关指令。</p> <p>今天的实践环节，你可以尝试自己分析一段较为复杂的字节码，在草稿上画出局部变量数组以及操作数栈分布图。当碰到不熟悉的指令时，你可以查阅<a href="https://docs.oracle.com/javase/specs/jvms/se10/html/jvms-6.html#jvms-6.5" target="_blank" rel="noopener noreferrer">Java虚拟机规范第6.5小节<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> ，或者<a href="https://cs.au.dk/~mis/dOvs/jvmspec/ref-Java.html" target="_blank" rel="noopener noreferrer">此链接<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>。</p> <p><img src="https://static001.geekbang.org/resource/image/2a/d5/2a62e58cbdf56a5dc40748567d346fd5.jpg" alt></p></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/jvm/article/14652.html" class="prev">
+          21 | 方法内联（下）
+        </a></span> <span class="next"><a href="/jvm/article/18046.html">
+          22 | HotSpot虚拟机的intrinsic
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/jvm/assets/js/app.b0c224e1.js" defer></script><script src="/jvm/assets/js/26.33fc6899.js" defer></script>
+  </body>
+</html>

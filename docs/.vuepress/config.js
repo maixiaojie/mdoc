@@ -18,6 +18,18 @@ module.exports = {
             items: [{
                 text: '数据结构与算法之美',
                 link: 'http://doc.mcust.cn/ds/'
+            },{
+                text: '深入拆解 Java 虚拟机',
+                link: 'http://doc.mcust.cn/jvm/'
+            },{
+                text: '趣谈网络协议',
+                link: 'http://doc.mcust.cn/netprotocol/'
+            },{
+                text: '左耳听风',
+                link: 'http://doc.mcust.cn/air/'
+            },{
+                text: '深入浅出区块链',
+                link: 'http://doc.mcust.cn/blockchain/'
             }]
         }],
         sidebar: [
