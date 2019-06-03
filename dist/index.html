@@ -22,7 +22,22 @@
     <!-- Header -->
     <div class="nav">
         <a class="logo" href="index.html"><img src="https://img.hacpai.com/avatar/1559013015300_1559109080983.jpeg" width="40" title="麦晓杰"></a>
+        <div class="lanmu">
+            <span id="zhuanlan">专栏分享</span>
+        </div>
         <a class="logo pull-right sobtn"><span class="glyphicon glyphicon-search" style="color: #B4B4B4;"></span></a>
+    </div>
+    <div class="items" display="none">
+        <div class="item-container">
+            <ul>
+                <li><a href="http://doc.mcust.cn/frontend/" target="__blank">重学前端</a></li>
+                <li><a href="http://doc.mcust.cn/ds/" target="__blank">数据结构与算法之美</a></li>
+                <li><a href="http://doc.mcust.cn/air/" target="__blank">左耳听风</a></li>
+                <li><a href="http://doc.mcust.cn/jvm/" target="__blank">深入拆解 Java 虚拟机</a></li>
+                <li><a href="http://doc.mcust.cn/netprotocol/" target="__blank">趣谈网络协议</a></li>
+                <li><a href="http://doc.mcust.cn/blockchain/" target="__blank">深入浅出区块链</a></li>
+            </ul>
+        </div>
     </div>
     <!-- Body -->
     <section class="cd-hero">
@@ -101,7 +116,7 @@
                 <div class="col-sm-4">
                     <a href="#">京ICP备17016953号</a>
                 </div>
-                <div class="col-sm-8 fr">Copyright © 2017 - 2019 YOKE Powered by <a href="https://qq.mcust.cn/#/about">YOKE工作室</a>
+                <div class="col-sm-8 fr">Copyright © 2017 - 2019 YOKE Powered by <a href="https://qq.mcust.cn/#/about" target="__blank">YOKE工作室</a>
                 </div>
                 <p></p>
             </div>
@@ -153,6 +168,22 @@
         var bheigh = bheigh - 115;
         $(".cd-hero").css('height', bheigh);
     });
+    $(document).on('click', function(e) {
+        var showStatus = $('.items').attr('display') == 'block' ? true : false;
+        if($(e.target).attr('id') == 'zhuanlan') {
+            if(showStatus) {
+                $('.items').css({'transform': 'translateY(-100%)'});
+                $('.items').attr('display', 'none');
+            }else {
+                $('.items').css({'transform': 'translateY(0)'});
+                $('.items').attr('display', 'block');
+            }
+        }
+        if($(e.target).closest('.items').length == 0 && $(e.target).attr('id') !== 'zhuanlan') {
+            $('.items').attr({'display': 'none'});
+            $('.items').css({'transform': 'translateY(-100%)'});
+        }
+    })
     </script>
 </body>
 
