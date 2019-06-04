@@ -16,6 +16,15 @@
     <script src="https://cdn.bootcss.com/tether/1.4.4/js/tether.min.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     <link href="./static/css/style.css" type="text/css" rel="stylesheet" />
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?bb12d6897f71cec8e4d7332b3e3541ea";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 
 <body>
@@ -174,18 +183,18 @@
     });
     $(document).on('click', function(e) {
         var showStatus = $('.items').attr('display') == 'block' ? true : false;
-        if($(e.target).attr('id') == 'zhuanlan') {
-            if(showStatus) {
-                $('.items').css({'transform': 'translateY(-100%)'});
+        if ($(e.target).attr('id') == 'zhuanlan') {
+            if (showStatus) {
+                $('.items').css({ 'transform': 'translateY(-100%)' });
                 $('.items').attr('display', 'none');
-            }else {
-                $('.items').css({'transform': 'translateY(0)'});
+            } else {
+                $('.items').css({ 'transform': 'translateY(0)' });
                 $('.items').attr('display', 'block');
             }
         }
-        if($(e.target).closest('.items').length == 0 && $(e.target).attr('id') !== 'zhuanlan') {
-            $('.items').attr({'display': 'none'});
-            $('.items').css({'transform': 'translateY(-100%)'});
+        if ($(e.target).closest('.items').length == 0 && $(e.target).attr('id') !== 'zhuanlan') {
+            $('.items').attr({ 'display': 'none' });
+            $('.items').css({ 'transform': 'translateY(-100%)' });
         }
     })
     </script>
