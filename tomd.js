@@ -1,8 +1,8 @@
 const TurnDown = require('turndown')
 const fs = require('fs')
 
-var mdFilePath = './blockchain/article/'
-var JsonfilePath = './json/blockchain.json'
+var mdFilePath = './blockchain/webyck/'
+var JsonfilePath = './json/webyck.json'
 var trims = function(str) {
     str = str.replace(/\s/g, "");
     str = str.replace(/\||\*|/g, "");
@@ -11,7 +11,7 @@ var trims = function(str) {
 };
 var handleOne = function(item) {
     var turndown = new TurnDown()
-    var markdown = turndown.turndown(item.mdhtml)
+    var markdown = turndown.turndown(item.html)
     
     if (!fs.existsSync(mdFilePath)) {
         fs.mkdirSync(mdFilePath);
@@ -40,10 +40,10 @@ function createSideBar() {
     var sidebar = [];
     for (var i = 0; i < jsonData.length; i++) {
         (function(i) {
-            sidebar.push(['./article/' + jsonData[i].id, jsonData[i].article_title])
+            sidebar.push(['./article/' + jsonData[i]._id, jsonData[i].title])
         })(i)
     }
     console.log(sidebar);
 }
-createFile()
-// createSideBar()
+// createFile()
+createSideBar()

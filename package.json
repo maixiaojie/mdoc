@@ -16,14 +16,18 @@
     "air:build": "vuepress build air",
     "blockchain:dev": "vuepress dev blockchain",
     "blockchain:build": "vuepress build blockchain",
+    "webyck:dev": "vuepress dev webyck",
+    "webyck:build": "vuepress build webyck",
     "build": "npm run docs:build && npm run ds:build && npm run jvm:build && npm run net:build && npm run air:build && npm run blockchain:build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "puppeteer": "^1.17.0",
     "vuepress": "^0.14.11"
   },
   "dependencies": {
+    "selenium-webdriver": "^4.0.0-alpha.1",
     "turndown": "^5.0.3"
   }
 }
