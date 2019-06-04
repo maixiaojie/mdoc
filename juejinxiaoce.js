@@ -3,7 +3,9 @@ const fs = require("fs");
 
 (async () => {
     // var bookurl = 'https://juejin.im/book/5bdc715fe51d454e755f75ef' // 前端面试之道
-    var bookurl = 'https://juejin.im/book/5a8f9ddcf265da4e9f6fb959'
+    // var bookurl = 'https://juejin.im/book/5a8f9ddcf265da4e9f6fb959' // 高频面试题解析
+    // var bookurl = "https://juejin.im/book/5c526902e51d4543805ef35e"; // chrome
+    var bookurl = "https://juejin.im/book/5a0ab8e2f265da43111fbab2"; // canvas
     var logintel = '17744568139'
     var loginpwd = '19950616wyj'
     var resData = []
@@ -45,7 +47,7 @@ const fs = require("fs");
                 }
             }
             console.log('1')
-            fs.writeFile('web.json', JSON.stringify(resData), 'utf-8', function(err) {
+            fs.writeFile('chrome.json', JSON.stringify(resData), 'utf-8', function(err) {
                 console.log(err)
             });
         } catch (e) {

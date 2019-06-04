@@ -20,7 +20,11 @@
     "webyck:build": "vuepress build webyck",
     "webinter:dev": "vuepress dev webinter",
     "webinter:build": "vuepress build webinter",
-    "build": "npm run docs:build && npm run ds:build && npm run jvm:build && npm run net:build && npm run air:build && npm run blockchain:build && npm run webyck:build && npm run webinter:build"
+    "chrome:dev": "vuepress dev chrome",
+    "chrome:build": "vuepress build chrome",
+    "canvas:dev": "vuepress dev canvas",
+    "canvas:build": "vuepress build canvas",
+    "build": "npm run docs:build && npm run ds:build && npm run jvm:build && npm run net:build && npm run air:build && npm run blockchain:build && npm run webyck:build && npm run webinter:build && npm run chrome:build && npm run canvas:build"
   },
   "author": "",
   "license": "ISC",

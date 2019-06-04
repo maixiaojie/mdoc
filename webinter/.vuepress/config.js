@@ -36,6 +36,12 @@ module.exports = {
             }, {
                 text: '趣谈网络协议',
                 link: 'http://doc.mcust.cn/netprotocol/'
+            }, {
+                text: '你不知道的 Chrome 调试技巧',
+                link: 'http://doc.mcust.cn/chrome/'
+            }, {
+                text: '如何使用 Canvas 制作出炫酷的网页背景特效',
+                link: 'http://doc.mcust.cn/canvas/'
             }]
         }],
         sidebar: [

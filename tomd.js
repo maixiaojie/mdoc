@@ -1,8 +1,8 @@
 const TurnDown = require('turndown')
 const fs = require('fs')
 
-var mdFilePath = './webinter/article/'
-var JsonfilePath = './json/webinter.json'
+var mdFilePath = './canvas/article/'
+var JsonfilePath = './json/canvas.json'
 var trims = function(str) {
     str = str.replace(/\s/g, "");
     str = str.replace(/\||\*|/g, "");
