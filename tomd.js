@@ -1,8 +1,8 @@
 const TurnDown = require('turndown')
 const fs = require('fs')
 
-var mdFilePath = './blockchain/webyck/'
-var JsonfilePath = './json/webyck.json'
+var mdFilePath = './webinter/article/'
+var JsonfilePath = './json/webinter.json'
 var trims = function(str) {
     str = str.replace(/\s/g, "");
     str = str.replace(/\||\*|/g, "");
@@ -10,8 +10,9 @@ var trims = function(str) {
     return str;
 };
 var handleOne = function(item) {
-    var turndown = new TurnDown()
-    var markdown = turndown.turndown(item.html)
+    // var turndown = new TurnDown()
+    // var markdown = turndown.turndown(item.html)
+    var markdown = item.content;
     
     if (!fs.existsSync(mdFilePath)) {
         fs.mkdirSync(mdFilePath);

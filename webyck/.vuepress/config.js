@@ -30,6 +30,12 @@ module.exports = {
             }, {
                 text: '深入浅出区块链',
                 link: 'http://doc.mcust.cn/blockchain/'
+            }, {
+                text: '趣谈网络协议',
+                link: 'http://doc.mcust.cn/netprotocol/'
+            }, {
+                text: 'Web 前端面试指南与高频考题解析',
+                link: 'http://doc.mcust.cn/webinter/'
             }]
         }],
         sidebar: [

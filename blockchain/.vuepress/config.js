@@ -30,6 +30,12 @@ module.exports = {
             }, {
                 text: '左耳听风',
                 link: 'http://doc.mcust.cn/air/'
+            }, {
+                text: '前端面试之道',
+                link: 'http://doc.mcust.cn/webyck/'
+            }, {
+                text: 'Web 前端面试指南与高频考题解析',
+                link: 'http://doc.mcust.cn/webinter/'
             }]
         }],
         sidebar: [

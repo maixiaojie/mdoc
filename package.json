@@ -18,7 +18,9 @@
     "blockchain:build": "vuepress build blockchain",
     "webyck:dev": "vuepress dev webyck",
     "webyck:build": "vuepress build webyck",
-    "build": "npm run docs:build && npm run ds:build && npm run jvm:build && npm run net:build && npm run air:build && npm run blockchain:build"
+    "webinter:dev": "vuepress dev webinter",
+    "webinter:build": "vuepress build webinter",
+    "build": "npm run docs:build && npm run ds:build && npm run jvm:build && npm run net:build && npm run air:build && npm run blockchain:build && npm run webyck:build && npm run webinter:build"
   },
   "author": "",
   "license": "ISC",
