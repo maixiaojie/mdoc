@@ -42,6 +42,9 @@ module.exports = {
             }, {
                 text: '前端面试之道',
                 link: 'http://doc.mcust.cn/webyck/'
+            }, {
+                text: 'MySQL实战45讲',
+                link: 'http://doc.mcust.cn/mysql/'
             }]
         }],
         sidebar: [

@@ -42,6 +42,9 @@ module.exports = {
             }, {
                 text: '如何使用 Canvas 制作出炫酷的网页背景特效',
                 link: 'http://doc.mcust.cn/canvas/'
+            }, {
+                text: 'MySQL实战45讲',
+                link: 'http://doc.mcust.cn/mysql/'
             }]
         }],
         sidebar: [

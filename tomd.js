@@ -1,8 +1,8 @@
 const TurnDown = require('turndown')
 const fs = require('fs')
 
-var mdFilePath = './canvas/article/'
-var JsonfilePath = './json/canvas.json'
+var mdFilePath = './mysql/article/'
+var JsonfilePath = './json/mysql.json'
 var trims = function(str) {
     str = str.replace(/\s/g, "");
     str = str.replace(/\||\*|/g, "");
@@ -10,9 +10,9 @@ var trims = function(str) {
     return str;
 };
 var handleOne = function(item) {
-    // var turndown = new TurnDown()
-    // var markdown = turndown.turndown(item.html)
-    var markdown = item.content;
+    var turndown = new TurnDown()
+    var markdown = turndown.turndown(item.article_content)
+    // var markdown = item.content;
     
     if (!fs.existsSync(mdFilePath)) {
         fs.mkdirSync(mdFilePath);
@@ -41,10 +41,11 @@ function createSideBar() {
     var sidebar = [];
     for (var i = 0; i < jsonData.length; i++) {
         (function(i) {
-            sidebar.push(['./article/' + jsonData[i]._id, jsonData[i].title])
+            // sidebar.push(['./article/' + jsonData[i]._id, jsonData[i].title])
+            sidebar.push(['./article/' + jsonData[i].id, jsonData[i].article_title])
         })(i)
     }
     console.log(sidebar);
 }
-// createFile()
-createSideBar()
+createFile()
+// createSideBar()
