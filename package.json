@@ -26,7 +26,9 @@
     "canvas:build": "vuepress build canvas",
     "mysql:dev": "vuepress dev mysql",
     "mysql:build": "vuepress build mysql",
-    "build": "npm run docs:build && npm run ds:build && npm run jvm:build && npm run net:build && npm run air:build && npm run blockchain:build && npm run webyck:build && npm run webinter:build && npm run chrome:build && npm run canvas:build && npm run mysql:build"
+    "kafka:dev": "vuepress dev kafka",
+    "kafka:build": "vuepress build kafka",
+    "build": "npm run docs:build && npm run ds:build && npm run jvm:build && npm run net:build && npm run air:build && npm run blockchain:build && npm run webyck:build && npm run webinter:build && npm run chrome:build && npm run canvas:build && npm run mysql:build && npm run kafka:build"
   },
   "author": "",
   "license": "ISC",

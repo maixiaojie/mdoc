@@ -1,8 +1,8 @@
 const TurnDown = require('turndown')
 const fs = require('fs')
 
-var mdFilePath = './mysql/article/'
-var JsonfilePath = './json/mysql20.json'
+var mdFilePath = './kafka/article/'
+var JsonfilePath = './json/kafka.json'
 var trims = function(str) {
     str = str.replace(/\s/g, "");
     str = str.replace(/\||\*|/g, "");
