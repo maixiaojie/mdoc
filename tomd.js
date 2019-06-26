@@ -2,7 +2,7 @@ const TurnDown = require('turndown')
 const fs = require('fs')
 
 var mdFilePath = './mysql/article/'
-var JsonfilePath = './json/mysql.json'
+var JsonfilePath = './json/mysql20.json'
 var trims = function(str) {
     str = str.replace(/\s/g, "");
     str = str.replace(/\||\*|/g, "");
@@ -47,5 +47,5 @@ function createSideBar() {
     }
     console.log(sidebar);
 }
-createFile()
-// createSideBar()
+// createFile()
+createSideBar()
