@@ -2,6 +2,8 @@
 	<div>
 		<p id="one"><span id="content"></span></p>
 		<p style="text-align: center;"><img src="../public/rap.png" height="50" alt=""></p>
+		<!-- <p><span id="ctl" @click="ctl">播放</span></p> -->
+		<p style="text-align: center;"><audio ref="audio" id="audio" controls="controls" src="http://doc.mcust.cn/static/audio/rap.mp3"></audio></p>
 	</div>
 </template>
 <script>
@@ -9,8 +11,18 @@ import { init } from 'ityped';
 	export default {
 		data() {
 			return {
-
 			}
+		},
+		methods: {
+			ctl() {
+				if(this.$refs.audio.paused) {
+					this.$refs.audio.play();
+				}else {
+					this.$refs.audio.pause();
+				}
+			}
+		},
+		components: {
 		},
 		mounted() {
 			init(`#content`, {
