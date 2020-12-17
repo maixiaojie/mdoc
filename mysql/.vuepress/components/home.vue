@@ -3,7 +3,7 @@
 		<p id="one"><span id="content"></span></p>
 		<p style="text-align: center;"><img src="../public/rap.png" height="50" alt=""></p>
 		<!-- <p><span id="ctl" @click="ctl">播放</span></p> -->
-		<p style="text-align: center;"><audio ref="audio" id="audio" controls="controls" src="http://doc.mcust.cn/static/audio/rap.mp3"></audio></p>
+		<p style="text-align: center;"><audio ref="audio" id="audio" controls="controls" src="https://doc.now.sh/static/audio/rap.mp3"></audio></p>
 	</div>
 </template>
 <script>

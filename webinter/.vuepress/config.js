@@ -17,34 +17,34 @@ module.exports = {
             text: '其他专栏',
             items: [{
                 text: '重学前端',
-                link: 'http://doc.mcust.cn/frontend/'
+                link: 'https://doc.now.sh/frontend/'
             }, {
                 text: '数据结构与算法之美',
-                link: 'http://doc.mcust.cn/ds/'
+                link: 'https://doc.now.sh/ds/'
             }, {
                 text: '深入拆解 Java 虚拟机',
-                link: 'http://doc.mcust.cn/jvm/'
+                link: 'https://doc.now.sh/jvm/'
             }, {
                 text: '左耳听风',
-                link: 'http://doc.mcust.cn/air/'
+                link: 'https://doc.now.sh/air/'
             }, {
                 text: '深入浅出区块链',
-                link: 'http://doc.mcust.cn/blockchain/'
+                link: 'https://doc.now.sh/blockchain/'
             }, {
                 text: '前端面试之道',
-                link: 'http://doc.mcust.cn/webyck/'
+                link: 'https://doc.now.sh/webyck/'
             }, {
                 text: '趣谈网络协议',
-                link: 'http://doc.mcust.cn/netprotocol/'
+                link: 'https://doc.now.sh/netprotocol/'
             }, {
                 text: '你不知道的 Chrome 调试技巧',
-                link: 'http://doc.mcust.cn/chrome/'
+                link: 'https://doc.now.sh/chrome/'
             }, {
                 text: '如何使用 Canvas 制作出炫酷的网页背景特效',
-                link: 'http://doc.mcust.cn/canvas/'
+                link: 'https://doc.now.sh/canvas/'
             }, {
                 text: 'MySQL实战45讲',
-                link: 'http://doc.mcust.cn/mysql/'
+                link: 'https://doc.now.sh/mysql/'
             }]
         }],
         sidebar: [
